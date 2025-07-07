@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import login from "/Login-bro.png";
+import { AuthContext } from "../../Context/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
+    const { signInUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -10,11 +13,33 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Login Info:", data);
-    // handle login logic here (email/password)
+     const { email, password } = data;
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result);
+      
+        Swal.fire({
+          title: 'Success!',
+          text: 'Login successful',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
+       
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Error!',
+          text: error.message,
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+      });
   };
+ 
+   
 
   return (
+    
     <div className="min-h-screen grid md:grid-cols-2 items-center gap-10 p-6 bg-gray-100 dark:bg-gray-900">
       {/* Login Form */}
       <div className="max-w-md w-full mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">

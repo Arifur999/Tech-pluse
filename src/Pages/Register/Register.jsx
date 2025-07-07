@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import registerImg from "/Sign up-bro.png";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Register = () => {
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -10,10 +14,44 @@ const Register = () => {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("User Registration Data:", data);
-    // You can now send this data to Firebase/Auth system
-    reset();
+  const onSubmit = async (data) => {
+    const { name, email, password, photo } = data;
+    const imageFile = photo[0];
+
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const imageHostKey = import.meta.env.VITE_IMAGEBB_KEY;
+    const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+
+    try {
+      const res = await fetch(imageUploadUrl, {
+        method: "POST",
+        body: formData,
+      });
+      const imgData = await res.json();
+      if (imgData.success) {
+        const photoURL = imgData.data.display_url;
+
+        const result = await createUser(email, password);
+
+        console.log(result);
+        await updateUserProfile(name, photoURL);
+
+        reset(); // form reset
+        Swal.fire({
+          icon: "success",
+          title: "Registration successful",
+          text: "Welcome to AppOrbit!",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error occurred",
+        text: error.message,
+      });
+    }
   };
 
   return (
@@ -53,7 +91,9 @@ const Register = () => {
               placeholder="name@example.com"
             />
             {errors.email && (
-              <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
+              <p className="text-sm text-red-500 mt-1">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
@@ -72,7 +112,9 @@ const Register = () => {
               placeholder="••••••••"
             />
             {errors.password && (
-              <p className="text-sm text-red-500 mt-1">{errors.password.message}</p>
+              <p className="text-sm text-red-500 mt-1">
+                {errors.password.message}
+              </p>
             )}
           </div>
 
@@ -88,7 +130,9 @@ const Register = () => {
               className="w-full px-4 py-2 text-sm border rounded-lg bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600"
             />
             {errors.photo && (
-              <p className="text-sm text-red-500 mt-1">{errors.photo.message}</p>
+              <p className="text-sm text-red-500 mt-1">
+                {errors.photo.message}
+              </p>
             )}
           </div>
 
@@ -103,7 +147,10 @@ const Register = () => {
           {/* Already have account */}
           <p className="text-sm text-center text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
-            <a href="/login" className="text-blue-600 hover:underline dark:text-blue-400">
+            <a
+              href="/login"
+              className="text-blue-600 hover:underline dark:text-blue-400"
+            >
               Login here
             </a>
           </p>
@@ -112,7 +159,11 @@ const Register = () => {
 
       {/* Image */}
       <div className="hidden md:block">
-        <img src={registerImg} alt="Register" className="w-full max-w-md mx-auto" />
+        <img
+          src={registerImg}
+          alt="Register"
+          className="w-full max-w-md mx-auto"
+        />
       </div>
     </div>
   );
