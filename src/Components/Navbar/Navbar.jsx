@@ -1,15 +1,20 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import computer from "/computer.png";
 import { AuthContext } from "../../Context/AuthContext";
+
+import { FaHome, FaBoxOpen, FaPhoneAlt, FaTachometerAlt, FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
-      <nav className="max-w-11/12 mx-auto flex items-center justify-between  py-4">
+      <nav className="max-w-11/12 mx-auto flex items-center justify-between py-4">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
           <img src={computer} className="h-8" alt="Logo" />
@@ -22,21 +27,27 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6">
           <Link
             to="/"
-            className="text-gray-700 dark:text-white hover:text-blue-600 transition"
+            className={`flex items-center gap-1 ${
+              isActive("/") ? "text-blue-600 font-semibold" : "text-gray-700 dark:text-white"
+            } hover:text-blue-600 transition`}
           >
-            Home
+            <FaHome /> Home
           </Link>
           <Link
             to="/products"
-            className="text-gray-700 dark:text-white hover:text-blue-600 transition"
+            className={`flex items-center gap-1 ${
+              isActive("/products") ? "text-blue-600 font-semibold" : "text-gray-700 dark:text-white"
+            } hover:text-blue-600 transition`}
           >
-            Products
+            <FaBoxOpen /> Products
           </Link>
           <Link
             to="/contact"
-            className="text-gray-700 dark:text-white hover:text-blue-600 transition"
+            className={`flex items-center gap-1 ${
+              isActive("/contact") ? "text-blue-600 font-semibold" : "text-gray-700 dark:text-white"
+            } hover:text-blue-600 transition`}
           >
-            Contact
+            <FaPhoneAlt /> Contact
           </Link>
         </div>
 
@@ -74,10 +85,12 @@ const Navbar = () => {
                     <li>
                       <Link
                         to="/dashboard"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className={`flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                          isActive("/dashboard") ? "text-blue-600 font-semibold" : ""
+                        }`}
                         onClick={() => setMenuOpen(false)}
                       >
-                        Dashboard
+                        <FaTachometerAlt /> Dashboard
                       </Link>
                     </li>
                     <li>
@@ -86,9 +99,9 @@ const Navbar = () => {
                           logout();
                           setMenuOpen(false);
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
-                        Logout
+                        <FaSignOutAlt /> Logout
                       </button>
                     </li>
                   </>
@@ -97,10 +110,12 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/login"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      className={`flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                        isActive("/login") ? "text-blue-600 font-semibold" : ""
+                      }`}
                       onClick={() => setMenuOpen(false)}
                     >
-                      Login
+                      <FaSignInAlt /> Login
                     </Link>
                   </li>
                 )}

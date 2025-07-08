@@ -44,7 +44,7 @@ const DashboardLayout = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 w-64 h-screen bg-gray-50 dark:bg-gray-800 overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 z-40 w-64 min-h-screen bg-gray-50 dark:bg-gray-800 overflow-y-auto transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } sm:translate-x-0 sm:static sm:block`}
       >
