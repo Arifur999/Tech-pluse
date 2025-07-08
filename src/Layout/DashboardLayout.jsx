@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 import computer from "/computer.png";
 import {
   FaUser,
@@ -179,12 +179,11 @@ const DashboardLayout = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-4 pt-20 sm:pt-4 sm:ml-64">
-        <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-700 p-4">
-          <h2 className="text-xl font-bold mb-4 dark:text-white">
-            Welcome to your dashboard, {user?.displayName || "User"}
-          </h2>
+      <main className="flex-1 sm:pt-4 ">
+        <div className=" rounded-lg border-gray-300 dark:border-gray-700 ">
+          
           {/* Dashboard content goes here */}
+          <Outlet></Outlet>
         </div>
       </main>
     </div>
