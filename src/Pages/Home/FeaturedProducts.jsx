@@ -37,7 +37,7 @@ const FeaturedProducts = () => {
   };
 
   return (
-    <section className="py-12 px-4 md:px-10 bg-gray-100 dark:bg-gray-900">
+    <section className="pb-12 pt-14 px-4 md:px-10 bg-gray-100 dark:bg-gray-900  ">
       {/* Section Heading */}
       <motion.h2
         className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-2"

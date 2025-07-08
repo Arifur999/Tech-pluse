@@ -7,6 +7,7 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import UserProfile from "../Pages/User/UserProfile";
 import AddProduct from "../Pages/User/AddProduct";
 import MyProducts from "../Pages/User/MyProducts";
+import Products from "../Pages/products/Products";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       { 
         path: "/register", 
         Component:Register,
+    },
+      { 
+        path: "/products", 
+        Component:Products,
     },
     ],
   },

@@ -31,27 +31,11 @@ const Hero = () => {
         ease: "linear",
       },
     });
-  }, []);
+  }, [controls1,controls2]);
 
   return (
     <div className="bg-black text-white py-16 px-4 md:px-12">
       <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10">
-        {/* Left Text */}
-        {/* <div className="space-y-6 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Unlock exclusive software deals and save big on{" "}
-            <span className="text-blue-600">lifetime access</span>
-          </h1>
-          <p className="text-lg text-gray-300">
-            Get lifetime access to top software & tools at unbeatable prices.
-          </p>
-          <button className="btn outline text-blue-600  px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition">
-            Browse all exclusive deals
-          </button>
-          <div className="pt-6 text-sm text-gray-400">
-            Helping 1M+ entrepreneurs since 2010
-          </div>
-        </div> */}
         <div className="space-y-6 text-center md:text-left">
       <motion.h1
         className="text-4xl md:text-5xl font-bold leading-tight"
