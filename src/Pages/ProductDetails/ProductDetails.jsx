@@ -20,6 +20,7 @@ const ProductDetails = () => {
   const [reportsCount, setReportsCount] = useState(0);
 
   useEffect(() => {
+    // Fetch product details, reviews and report count
     axiosSecure.get(`/products/${id}`).then((res) => setProduct(res.data));
     axiosSecure.get(`/reviews?productId=${id}`).then((res) => setReviews(res.data));
     axiosSecure.get(`/reports/count?productId=${id}`).then((res) => {
@@ -39,32 +40,46 @@ const ProductDetails = () => {
       }
     } catch (err) {
       console.error(err);
+      Swal.fire("Error", "Failed to upvote the product", "error");
     }
   };
 
-  const handleReport = () => {
+  const handleReport = async () => {
     if (!user) return navigate("/login");
 
-    Swal.fire({
+    const result = await Swal.fire({
       title: "Report this product?",
       text: "Your report will be reviewed by moderators.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       confirmButtonText: "Report",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await axiosSecure.post("/reports", {
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const res = await axiosSecure.post("/reports", {
           productId: id,
           reporter: user.email,
           reportedAt: new Date(),
         });
-        Swal.fire("Reported!", "Your report has been submitted.", "success");
 
+        // যদি ব্যাকএন্ড থেকে success মেসেজ আসে
+        if (res.status === 200 || res.status === 201) {
+          Swal.fire("Reported!", "Your report has been submitted.", "success");
+        }
+      } catch (error) {
+        // ব্যাকএন্ড থেকে যদি ইউজার আগেই রিপোর্ট করে থাকে
+        if (error.response && error.response.status === 400) {
+          Swal.fire("Oops!", error.response.data.message || "You have already reported this product.", "info");
+        } else {
+          Swal.fire("Error", "Failed to submit report", "error");
+        }
+      } finally {
         const res = await axiosSecure.get(`/reports/count?productId=${id}`);
         setReportsCount(res.data.count || 0);
       }
-    });
+    }
   };
 
   const handleReviewSubmit = async (e) => {
@@ -80,13 +95,17 @@ const ProductDetails = () => {
       timestamp: new Date(),
     };
 
-    const res = await axiosSecure.post("/reviews", review);
-    if (res.data.insertedId) {
-      Swal.fire("Thank you!", "Your review has been submitted.", "success");
-      setReviewText("");
-      setRating(5);
-      const updated = await axiosSecure.get(`/reviews?productId=${id}`);
-      setReviews(updated.data);
+    try {
+      const res = await axiosSecure.post("/reviews", review);
+      if (res.data.insertedId) {
+        Swal.fire("Thank you!", "Your review has been submitted.", "success");
+        setReviewText("");
+        setRating(5);
+        const updated = await axiosSecure.get(`/reviews?productId=${id}`);
+        setReviews(updated.data);
+      }
+    } catch (error) {
+      Swal.fire("Error", "Failed to submit review", "error");
     }
   };
 
@@ -119,14 +138,14 @@ const ProductDetails = () => {
           </div>
 
           {product.externalLink && (
-            <a
-              href={product.externalLink}
+            <Link
+              to="/products"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-500 underline block mb-4"
             >
               Visit Product Page
-            </a>
+            </Link>
           )}
 
           <div className="mb-6 space-y-2 text-gray-700 dark:text-gray-300">

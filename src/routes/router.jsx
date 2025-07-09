@@ -9,6 +9,7 @@ import AddProduct from "../Pages/User/AddProduct";
 import MyProducts from "../Pages/User/MyProducts";
 import Products from "../Pages/products/Products";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import PrivateRoute from "../Routs/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/product/:id",
-        Component: ProductDetails,
+        element: (
+          <PrivateRoute>
+            <ProductDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -43,9 +48,9 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      // <PrivateRoute>
-      <DashboardLayout />
-      // </PrivateRoute>
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
     ),
     children: [
       // 👤 User Routes
