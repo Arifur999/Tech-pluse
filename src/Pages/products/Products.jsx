@@ -5,7 +5,7 @@ import { FaSearch, FaThumbsUp } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../Context/AuthContext";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 const Products = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Products = () => {
       const res = await axiosSecure.get(
         `/products/all?search=${encodeURIComponent(searchTerm)}&page=${page}&limit=${limit}`
       );
-      return res.data; // expected: { products: [...], totalCount: number }
+      return res.data; 
     },
     keepPreviousData: true,
   });
@@ -165,7 +165,7 @@ const Products = () => {
           disabled={page === 1}
           className="px-4 py-2 rounded bg-blue-600 text-white disabled:bg-gray-400 cursor-pointer"
         >
-          Prev
+          <GrLinkPrevious />
         </button>
         <span className="text-white">
           Page {page} of {totalPages}
@@ -175,7 +175,7 @@ const Products = () => {
           disabled={page === totalPages || totalPages === 0}
           className="px-4 py-2 rounded bg-blue-600 text-white disabled:bg-gray-400 cursor-pointer"
         >
-          Next
+          <GrLinkNext />
         </button>
       </div>
     </section>

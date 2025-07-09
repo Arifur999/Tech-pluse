@@ -8,7 +8,7 @@ import UserProfile from "../Pages/User/UserProfile";
 import AddProduct from "../Pages/User/AddProduct";
 import MyProducts from "../Pages/User/MyProducts";
 import Products from "../Pages/products/Products";
-
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -16,22 +16,26 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     // errorElement: <NotFound />,
     children: [
-      { 
-        path: "/", 
-        Component:Home,
-    },
-      { 
-        path: "/login", 
-        Component:Login,
-    },
-      { 
-        path: "/register", 
-        Component:Register,
-    },
-      { 
-        path: "/products", 
-        Component:Products,
-    },
+      {
+        path: "/",
+        Component: Home,
+      },
+      {
+        path: "/login",
+        Component: Login,
+      },
+      {
+        path: "/register",
+        Component: Register,
+      },
+      {
+        path: "/products",
+        Component: Products,
+      },
+      {
+        path: "/product/:id",
+        Component: ProductDetails,
+      },
     ],
   },
 
@@ -40,24 +44,24 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       // <PrivateRoute>
-        <DashboardLayout />
+      <DashboardLayout />
       // </PrivateRoute>
     ),
     children: [
       // 👤 User Routes
-    {
-      path:"/dashboard/profile",
-      Component:UserProfile,
-    },
-    {
-      path:"/dashboard/add-product",
-      Component:AddProduct,
-    },
-    {
-      path:"/dashboard/my-products",
-      Component:MyProducts,
-    },
-  
+      {
+        path: "/dashboard/profile",
+        Component: UserProfile,
+      },
+      {
+        path: "/dashboard/add-product",
+        Component: AddProduct,
+      },
+      {
+        path: "/dashboard/my-products",
+        Component: MyProducts,
+      },
+
       // 🛡️ Moderator Routes
       // {
       //   path: "review-queue",
