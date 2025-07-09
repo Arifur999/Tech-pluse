@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router";
-import { FaThumbsUp, FaFlag, FaUser, FaCalendarAlt } from "react-icons/fa";
+import { FaThumbsUp, FaFlag, FaUser, FaCalendarAlt, FaStar, FaRegStar } from "react-icons/fa";
 import { AuthContext } from "../../Context/AuthContext";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
+import Rating from "react-rating";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -19,11 +20,8 @@ const ProductDetails = () => {
   const [reportsCount, setReportsCount] = useState(0);
 
   useEffect(() => {
-    // Fetch product data
     axiosSecure.get(`/products/${id}`).then((res) => setProduct(res.data));
-    // Fetch reviews
     axiosSecure.get(`/reviews?productId=${id}`).then((res) => setReviews(res.data));
-    // Fetch reports count for this product
     axiosSecure.get(`/reports/count?productId=${id}`).then((res) => {
       setReportsCount(res.data.count || 0);
     });
@@ -62,7 +60,7 @@ const ProductDetails = () => {
           reportedAt: new Date(),
         });
         Swal.fire("Reported!", "Your report has been submitted.", "success");
-        
+
         const res = await axiosSecure.get(`/reports/count?productId=${id}`);
         setReportsCount(res.data.count || 0);
       }
@@ -95,7 +93,7 @@ const ProductDetails = () => {
   if (!product) return <p className="text-center py-20">Loading...</p>;
 
   return (
-    <div className="w-full  py-10 px-4 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
+    <div className="w-full py-10 px-4 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
       {/* Product Section */}
       <div className="grid md:grid-cols-2 w-11/12 mx-auto gap-10 items-center">
         <img
@@ -121,17 +119,16 @@ const ProductDetails = () => {
           </div>
 
           {product.externalLink && (
-            <Link
-              to="/products"
+            <a
+              href={product.externalLink}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-500 underline block mb-4"
             >
               Visit Product Page
-            </Link>
+            </a>
           )}
 
-          {/* Extra info: Owner, Date Added, Likes, Reports */}
           <div className="mb-6 space-y-2 text-gray-700 dark:text-gray-300">
             <p className="flex items-center gap-2">
               <FaUser /> <strong>Added By:</strong> {product.ownerName || "Unknown"}
@@ -181,30 +178,37 @@ const ProductDetails = () => {
         {reviews.length === 0 ? (
           <p className="text-gray-600 dark:text-gray-400">No reviews yet.</p>
         ) : (
-          <div className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-6">
             {reviews.map((review, i) => (
               <motion.div
                 key={i}
-                className="border p-4 rounded-lg shadow bg-white dark:bg-gray-800"
+                className="p-5 rounded-lg shadow-md bg-white dark:bg-gray-800 border dark:border-gray-700"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
               >
-                <div className="flex items-center gap-3 mb-2">
+                <div className="flex items-center gap-4 mb-3">
                   <img
                     src={review.reviewerImage}
                     alt="avatar"
-                    className="w-10 h-10 rounded-full"
+                    className="w-12 h-12 rounded-full border-2 border-blue-500"
                   />
                   <div>
-                    <p className="font-semibold">{review.reviewerName}</p>
+                    <p className="font-semibold text-lg text-blue-600 dark:text-blue-400">
+                      {review.reviewerName}
+                    </p>
                     <p className="text-xs text-gray-500">
                       {new Date(review.timestamp).toLocaleString()}
                     </p>
                   </div>
                 </div>
-                <p>{review.reviewText}</p>
-                <p className="text-sm text-yellow-500">Rating: {review.rating} / 5</p>
+                <p className="text-gray-800 dark:text-gray-200 mb-2">{review.reviewText}</p>
+                <Rating
+                  initialRating={review.rating}
+                  readonly
+                  emptySymbol={<FaRegStar className="text-yellow-400" />}
+                  fullSymbol={<FaStar className="text-yellow-400" />}
+                />
               </motion.div>
             ))}
           </div>
@@ -214,7 +218,10 @@ const ProductDetails = () => {
       {/* Submit Review Section */}
       <div className="mt-10 w-11/12 mx-auto">
         <h3 className="text-xl font-semibold mb-4">Write a Review</h3>
-        <form onSubmit={handleReviewSubmit} className="space-y-4">
+        <form
+          onSubmit={handleReviewSubmit}
+          className="space-y-4 bg-white dark:bg-gray-800 p-6 rounded shadow-md"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input
               readOnly
@@ -236,15 +243,12 @@ const ProductDetails = () => {
             placeholder="Write your thoughts about this product..."
           ></textarea>
           <div>
-            <label className="block mb-1">Rating (1-5)</label>
-            <input
-              type="number"
-              min={1}
-              max={5}
-              value={rating}
-              onChange={(e) => setRating(Number(e.target.value))}
-              className="px-4 py-2 border rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-              required
+            <label className="block mb-1 text-gray-700 dark:text-gray-300">Rating</label>
+            <Rating
+              initialRating={rating}
+              emptySymbol={<FaRegStar className="text-yellow-400 text-xl" />}
+              fullSymbol={<FaStar className="text-yellow-400 text-xl" />}
+              onChange={(value) => setRating(value)}
             />
           </div>
           <button
