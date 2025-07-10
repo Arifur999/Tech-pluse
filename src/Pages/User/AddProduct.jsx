@@ -20,8 +20,7 @@ const AddProduct = () => {
   } = useForm();
 
   const [tags, setTags] = useState([]);
-  const delimiters = [188, 13]; // comma & enter
-
+  const delimiters = [188, 13]; 
   const handleDelete = (i) => {
     setTags(tags.filter((_, index) => index !== i));
   };
@@ -30,65 +29,73 @@ const AddProduct = () => {
     setTags([...tags, tag]);
   };
 
-  const onSubmit = async (data) => {
-    const imageFile = data.productImage[0];
-    const formData = new FormData();
-    formData.append("image", imageFile);
+ const onSubmit = async (data) => {
+  const imageFile = data.productImage[0];
+  const formData = new FormData();
+  formData.append("image", imageFile);
 
-    const imgbbKey = import.meta.env.VITE_IMAGEBB_KEY;
-    const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgbbKey}`;
+  const imgbbKey = import.meta.env.VITE_IMAGEBB_KEY;
+  const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgbbKey}`;
 
-    try {
-      const imageRes = await fetch(imgbbUrl, {
-        method: "POST",
-        body: formData,
+  try {
+    const imageRes = await fetch(imgbbUrl, {
+      method: "POST",
+      body: formData,
+    });
+    const imageData = await imageRes.json();
+
+    if (!imageData.success) {
+      toast.error("Image upload failed.");
+      return;
+    }
+
+    const productImageUrl = imageData.data.url;
+
+    const productData = {
+      productName: data.productName,
+      productImage: productImageUrl,
+      description: data.description,
+      externalLink: data.externalLink || "",
+      tags: tags.map((tag) => tag.text),
+      status: "pending",
+      ownerName: user?.displayName,
+      ownerEmail: user?.email,
+      ownerImage: user?.photoURL,
+      timestamp: new Date(),
+    };
+
+    const res = await axiosSecure.post("/products", productData);
+
+    if (res.data.insertedId || res.data._id) {
+      Swal.fire({
+        title: "Success!",
+        text: "Product added successfully!",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Go to My Products",
+      }).then(() => {
+        reset();
+        setTags([]);
+        navigate("/dashboard/my-products");
       });
-      const imageData = await imageRes.json();
-
-      if (!imageData.success) {
-        toast.error("Image upload failed.");
-        return;
-      }
-
-      const productImageUrl = imageData.data.url;
-
-      const productData = {
-        productName: data.productName,
-        productImage: productImageUrl,
-        description: data.description,
-        externalLink: data.externalLink || "",
-        tags: tags.map((tag) => tag.text),
-        status: "pending",
-        ownerName: user?.displayName,
-        ownerEmail: user?.email,
-        ownerImage: user?.photoURL,
-        timestamp: new Date(),
-      };
-
-      const res = await axiosSecure.post("/products", productData);
-
-      if (res.data.insertedId || res.data._id) {
-        Swal.fire({
-          title: "Success!",
-          text: " Product added successfully!",
-          icon: "success",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Go to My Products",
-        }).then(() => {
-          reset();
-          setTags([]);
-          navigate("/dashboard/my-products");
-        });
-      } else {
-        Swal.fire({
-          title: "Error!",
-          text: " Failed to save product.",
-          icon: "error",
-          confirmButtonColor: "#d33",
-        });
-      }
-    } catch (error) {
-      console.error("Error submitting product:", error);
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: res.data.message || "Failed to save product.",
+        icon: "error",
+        confirmButtonColor: "#d33",
+      });
+    }
+  } catch (error) {
+    console.error("Error submitting product:", error);
+    if (error.response && error.response.status === 403) {
+      Swal.fire({
+        title: "Subscription Required",
+        text: error.response.data.message,
+        icon: "warning",
+        confirmButtonColor: "#d33",
+      });
+    } else {
       Swal.fire({
         title: "Oops!",
         text: "Something went wrong. Please try again.",
@@ -96,7 +103,9 @@ const AddProduct = () => {
         confirmButtonColor: "#d33",
       });
     }
-  };
+  }
+};
+
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-800 rounded shadow my-10">
@@ -182,8 +191,8 @@ const AddProduct = () => {
             placeholder="Press enter after each tag"
             classNames={{
               tags: "ReactTags__tags",
-              tagInput: "w-full",
-              tag: "inline-block bg-blue-100 text-blue-700 rounded px-2 py-1 m-1",
+              tagInput: "w-full text-white",
+              tag: "inline-block bg-blue-100 text-blue-700 rounded px-2 py-1 m-1 ",
               remove: "ml-1 text-red-500 cursor-pointer",
             }}
           />

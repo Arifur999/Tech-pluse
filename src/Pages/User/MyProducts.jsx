@@ -1,27 +1,26 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router";
+import React, { useContext, useState } from "react";  
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { FaEdit, FaTrash, FaSpinner } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { AuthContext } from "../../Context/AuthContext";
 import Loading from "../../Components/Loading/Loading";
+import UpdateProductModal from "./UpdateProductModal";  
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  
+  const [selectedProduct, setSelectedProduct] = useState(null);  
+
   const fetchMyProducts = async () => {
     if (!user?.email) return [];
     const { data } = await axiosSecure.get(`/api/user/products?email=${user.email}`);
     return data;
   };
 
-  // React Query useQuery with v5 object syntax
   const {
     data: products = [],
     isLoading,
@@ -33,7 +32,6 @@ const MyProducts = () => {
     enabled: !!user?.email,
   });
 
-  
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
       const res = await axiosSecure.delete(`/api/user/product/${id}`);
@@ -64,11 +62,26 @@ const MyProducts = () => {
     });
   };
 
+  // এখন handleUpdate শুধু selectedProduct সেট করবে, navigate করবে না
   const handleUpdate = (id) => {
-    navigate(`/products/update/${id}`);
+    const product = products.find((p) => p._id === id);
+    if (product) {
+      setSelectedProduct(product);
+    }
   };
 
-   if (isLoading) return <Loading />;
+  const handleUpdateProduct = async (updatedData) => {
+    try {
+      await axiosSecure.put(`/api/user/product/${selectedProduct._id}`, updatedData);
+      Swal.fire("Success", "Product updated successfully", "success");
+      queryClient.invalidateQueries(["my-products", user?.email]);
+      setSelectedProduct(null);  
+    } catch (error) {
+      Swal.fire("Error", "Failed to update product", "error");
+    }
+  };
+
+  if (isLoading) return <Loading />;
 
   if (isError) {
     return (
@@ -142,6 +155,15 @@ const MyProducts = () => {
             ))}
           </tbody>
         </motion.table>
+      )}
+
+      {/* Modal call */}
+      {selectedProduct && (
+        <UpdateProductModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          onUpdate={handleUpdateProduct}
+        />
       )}
     </div>
   );

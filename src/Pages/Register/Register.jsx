@@ -3,10 +3,14 @@ import { useForm } from "react-hook-form";
 import registerImg from "/Sign up-bro.png";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthContext";
+import { useLocation, useNavigate } from "react-router";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
+const navigate = useNavigate(); 
+  const location = useLocation(); 
 
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -14,46 +18,46 @@ const Register = () => {
     reset,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const { name, email, password, photo } = data;
-    const imageFile = photo[0];
+const onSubmit = async (data) => {
+  const { name, email, password, photo } = data;
+  const imageFile = photo[0];
 
-    const formData = new FormData();
-    formData.append("image", imageFile);
+  const formData = new FormData();
+  formData.append("image", imageFile);
 
-    const imageHostKey = import.meta.env.VITE_IMAGEBB_KEY;
-    const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+  const imageHostKey = import.meta.env.VITE_IMAGEBB_KEY;
+  const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
 
-    try {
-      const res = await fetch(imageUploadUrl, {
-        method: "POST",
-        body: formData,
-      });
-      const imgData = await res.json();
-      if (imgData.success) {
-        const photoURL = imgData.data.display_url;
+  try {
+    const res = await fetch(imageUploadUrl, {
+      method: "POST",
+      body: formData,
+    });
+    const imgData = await res.json();
 
-        const result = await createUser(email, password);
+    if (imgData.success) {
+      const photoURL = imgData.data.display_url;
 
-        console.log(result);
-        await updateUserProfile(name, photoURL);
+      const result = await createUser(email, password);
+      await updateUserProfile(name, photoURL);
 
-        reset(); // form reset
-        Swal.fire({
-          icon: "success",
-          title: "Registration successful",
-          text: "Welcome to AppOrbit!",
-        });
-      }
-    } catch (error) {
+      reset(); // form reset
       Swal.fire({
-        icon: "error",
-        title: "Error occurred",
-        text: error.message,
+        icon: "success",
+        title: "Registration successful",
+        text: "Welcome to AppOrbit!",
+      }).then(() => {
+        navigate(from, { replace: true }); 
       });
     }
-  };
-
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error occurred",
+      text: error.message,
+    });
+  }
+};
   return (
     <div className="min-h-screen grid md:grid-cols-2 items-center gap-10 p-6 bg-gray-100 dark:bg-gray-900">
       {/* Register Form */}

@@ -1,17 +1,40 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FaEnvelope, FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../../Context/AuthContext";
+import Modal from "react-modal";
+import SubscriptionCheckout from "../../Components/Payment/SubscriptionCheckout";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
+Modal.setAppElement("#root");
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
 
-  // Default subscription status
+  //  Subscription status
   const [status, setStatus] = useState("Unsubscribed");
+  const [showModal, setShowModal] = useState(false);
 
-  // Placeholder for button click (future use)
-  const handleSubscribe = () => {
-    setStatus("Subscribed");
-    // You can also add backend call here
+  //  Fetch subscription status from server when user loads
+  useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api/user/info?email=${user?.email}`);
+        setStatus(res.data.subscription || "Unsubscribed");
+      } catch (err) {
+        console.error("Failed to fetch subscription status", err);
+      }
+    };
+
+    if (user?.email) {
+      fetchStatus();
+    }
+  }, [user?.email]);
+
+  const handleSubscribe = () => setShowModal(true);
+  const handlePaymentSuccess = () => {
+    setStatus("Verified");
+    setShowModal(false);
   };
 
   return (
@@ -51,9 +74,7 @@ const UserProfile = () => {
             Status:{" "}
             <span
               className={`font-semibold ${
-                status === "Subscribed"
-                  ? "text-green-600"
-                  : "text-red-500"
+                status === "Verified" ? "text-green-600" : "text-red-500"
               }`}
             >
               {status}
@@ -66,9 +87,22 @@ const UserProfile = () => {
           onClick={handleSubscribe}
           className="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition duration-300"
         >
-          Add Subscription
+          Subscription $100
         </button>
       </div>
+
+      {/* Stripe Checkout Modal */}
+      <Modal
+        isOpen={showModal}
+        onRequestClose={() => setShowModal(false)}
+        className="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg p-6 mx-auto mt-10 shadow-lg"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50"
+      >
+        <SubscriptionCheckout
+          userEmail={user?.email}
+          onSuccess={handlePaymentSuccess}
+        />
+      </Modal>
     </div>
   );
 };
