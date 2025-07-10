@@ -1,9 +1,8 @@
-
 import React from "react";
-import useDashboardRedirect from "../Hooks/useDashboardRedirect";
 
-const DashboardRedirect = () => {
-  return useDashboardRedirect();
+const DashboardRedirect = ({ children }) => {
+  
+  return <>{children}</>; 
 };
 
 export default DashboardRedirect;
