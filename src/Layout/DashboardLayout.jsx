@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router";
-import computer from "/computer.png";
+import { useQuery } from "@tanstack/react-query";
 import {
   FaUser,
   FaPlusCircle,
@@ -13,20 +13,40 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import computer from "/computer.png";
 import { AuthContext } from "../Context/AuthContext";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const DashboardLayout = () => {
-  const { user, userRole } = useContext(AuthContext);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
   const location = useLocation();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
   const isActive = (path) => location.pathname === path;
+
+  
+  const { data: userRole = "user", isLoading } = useQuery({
+    queryKey: ["user-role", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/role/${user.email}`);
+      return res.data?.role || "user";
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <div className="h-screen flex items-center justify-center text-xl font-semibold text-gray-600 dark:text-gray-200">
+        Loading Dashboard...
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
-      {/* Sticky Top Navbar (visible on mobile) */}
+      {/* Top Mobile Navbar */}
       <div className="sm:hidden fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow z-50 flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
           <img src={computer} className="h-6" alt="Logo" />
@@ -34,10 +54,7 @@ const DashboardLayout = () => {
             TECH<span className="text-blue-600">PULSE</span>
           </span>
         </div>
-        <button
-          onClick={toggleSidebar}
-          className="text-gray-700 dark:text-gray-300 focus:outline-none"
-        >
+        <button onClick={toggleSidebar} className="text-gray-700 dark:text-gray-300">
           {isSidebarOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
         </button>
       </div>
@@ -51,52 +68,56 @@ const DashboardLayout = () => {
         <div className="px-3 py-4 mt-14 sm:mt-0">
           <Link to="/" className="hidden sm:flex items-center ps-2.5 mb-5">
             <img src={computer} className="h-6 me-3 sm:h-7" alt="Logo" />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="text-xl font-semibold whitespace-nowrap dark:text-white">
               TECH<span className="text-blue-600">PULSE</span>
             </span>
           </Link>
 
           <ul className="space-y-2 font-medium">
             {/* User Routes */}
-            <li>
-              <Link
-                to="/dashboard/profile"
-                className={`flex items-center p-2 rounded-lg transition-colors ${
-                  isActive("/dashboard/profile")
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`}
-              >
-                <FaUser className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                <span className="ms-3">My Profile</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/dashboard/add-product"
-                className={`flex items-center p-2 rounded-lg transition-colors ${
-                  isActive("/dashboard/add-product")
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`}
-              >
-                <FaPlusCircle className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                <span className="ms-3">Add Products</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/dashboard/my-products"
-                className={`flex items-center p-2 rounded-lg transition-colors ${
-                  isActive("/dashboard/my-products")
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`}
-              >
-                <FaShoppingBag className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                <span className="ms-3">My Products</span>
-              </Link>
-            </li>
+            {userRole === "user" && (
+              <>
+                <li>
+                  <Link
+                    to="/dashboard/profile"
+                    className={`flex items-center p-2 rounded-lg transition-colors ${
+                      isActive("/dashboard/profile")
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    <FaUser className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                    <span className="ms-3">My Profile</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/dashboard/add-product"
+                    className={`flex items-center p-2 rounded-lg transition-colors ${
+                      isActive("/dashboard/add-product")
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    <FaPlusCircle className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                    <span className="ms-3">Add Products</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/dashboard/my-products"
+                    className={`flex items-center p-2 rounded-lg transition-colors ${
+                      isActive("/dashboard/my-products")
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    <FaShoppingBag className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                    <span className="ms-3">My Products</span>
+                  </Link>
+                </li>
+              </>
+            )}
 
             {/* Moderator Routes */}
             {userRole === "moderator" && (
@@ -178,12 +199,10 @@ const DashboardLayout = () => {
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 sm:pt-4 ">
-        <div className=" rounded-lg border-gray-300 dark:border-gray-700 ">
-          
-          {/* Dashboard content goes here */}
-          <Outlet></Outlet>
+      {/* Main Dashboard Content */}
+      <main className="flex-1 sm:pt-4">
+        <div className="rounded-lg border-gray-300 dark:border-gray-700">
+          <Outlet />
         </div>
       </main>
     </div>

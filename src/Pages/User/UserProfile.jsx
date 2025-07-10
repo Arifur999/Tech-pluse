@@ -19,7 +19,9 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/user/info?email=${user?.email}`);
+        const res = await axios.get(
+          `${API_URL}/api/user/info?email=${user?.email}`
+        );
         setStatus(res.data.subscription || "Unsubscribed");
       } catch (err) {
         console.error("Failed to fetch subscription status", err);
@@ -83,12 +85,14 @@ const UserProfile = () => {
         </div>
 
         {/* Add Subscription Button */}
-        <button
-          onClick={handleSubscribe}
-          className="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition duration-300"
-        >
-          Subscription $100
-        </button>
+        {status === "Unsubscribed" && (
+          <button
+            onClick={handleSubscribe}
+            className="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition duration-300"
+          >
+            Subscription $100
+          </button>
+        )}
       </div>
 
       {/* Stripe Checkout Modal */}

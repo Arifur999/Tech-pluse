@@ -10,6 +10,9 @@ import MyProducts from "../Pages/User/MyProducts";
 import Products from "../Pages/products/Products";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import PrivateRoute from "../Routs/PrivateRoute";
+import DashboardRedirect from "../Context/DashboardRedirect";
+import ReviewProducts from "../Pages/Moderator/ReviewProducts";
+import ReportProducts from "../Pages/Moderator/ReportProducts";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +56,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+      index: true,
+      element: <DashboardRedirect />,
+    },
       // 👤 User Routes
       {
         path: "/dashboard/profile",
@@ -68,22 +75,22 @@ const router = createBrowserRouter([
       },
 
       // 🛡️ Moderator Routes
-      // {
-      //   path: "review-queue",
-      //   element: (
-      //     <RoleBasedRoute role="moderator">
-      //       <ReviewQueue />
-      //     </RoleBasedRoute>
-      //   ),
-      // },
-      // {
-      //   path: "reported-contents",
-      //   element: (
-      //     <RoleBasedRoute role="moderator">
-      //       <ReportedContent />
-      //     </RoleBasedRoute>
-      //   ),
-      // },
+      {
+        path: "/dashboard/review-products",
+        element: (
+          <DashboardRedirect>
+            <ReviewProducts />
+          </DashboardRedirect>
+        ),
+      },
+      {
+        path: "/dashboard/report-products",
+        element: (
+      
+            <ReportProducts />
+          
+        ),
+      },
 
       // 👑 Admin Routes
       // {
