@@ -109,7 +109,7 @@ const ManageCoupons = () => {
 
       {/* Coupon Table */}
       <div className="overflow-x-auto">
-        <table className="table table-zebra w-full text-white">
+        <table className="table  w-full text-white">
           <thead className="bg-blue-950 text-blue-200">
             <tr>
               <th>#</th>
