@@ -15,6 +15,7 @@ import ReviewProducts from "../Pages/Moderator/ReviewProducts";
 import ReportProducts from "../Pages/Moderator/ReportProducts";
 import Status from "../Pages/Admin/Status";
 import ManageUsers from "../Pages/Admin/ManageUsers";
+import ManageCoupons from "../Pages/Admin/ManageCoupons";
 
 const router = createBrowserRouter([
   {
@@ -117,14 +118,12 @@ const router = createBrowserRouter([
         
         ),
       },
-      // {
-      //   path: "manage-coupons",
-      //   element: (
-      //     <RoleBasedRoute role="admin">
-      //       <ManageCoupons />
-      //     </RoleBasedRoute>
-      //   ),
-      // },
+      {
+        path: "/dashboard/manage-coupons",
+        element: (
+          <ManageCoupons/>
+        ),
+      },
     ],
   },
 ]);
