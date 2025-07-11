@@ -64,12 +64,10 @@ const ProductDetails = () => {
           reportedAt: new Date(),
         });
 
-        // যদি ব্যাকএন্ড থেকে success মেসেজ আসে
         if (res.status === 200 || res.status === 201) {
           Swal.fire("Reported!", "Your report has been submitted.", "success");
         }
       } catch (error) {
-        // ব্যাকএন্ড থেকে যদি ইউজার আগেই রিপোর্ট করে থাকে
         if (error.response && error.response.status === 400) {
           Swal.fire("Oops!", error.response.data.message || "You have already reported this product.", "info");
         } else {

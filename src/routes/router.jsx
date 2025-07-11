@@ -91,6 +91,14 @@ const router = createBrowserRouter([
           
         ),
       },
+      {
+        path: "/dashboard/report-products",
+        element: (
+      
+            <ReportProducts />
+          
+        ),
+      },
 
       // 👑 Admin Routes
       // {

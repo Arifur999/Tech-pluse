@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { FaCheckCircle, FaTimesCircle, FaStar } from "react-icons/fa";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import ProductDetailsModal from "./ProductDetailsModal"; // Import here
+import PendingDetailsModal from "./PendingDetailsModal";
 
 const ReviewProducts = () => {
   const axiosSecure = useAxiosSecure();
@@ -186,7 +186,7 @@ const ReviewProducts = () => {
 
       {/* Modal */}
       {modalOpen && (
-        <ProductDetailsModal product={modalProduct} onClose={closeModal} />
+        <PendingDetailsModal product={modalProduct} onClose={closeModal} />
       )}
     </div>
   );
