@@ -14,6 +14,7 @@ import DashboardRedirect from "../Context/DashboardRedirect";
 import ReviewProducts from "../Pages/Moderator/ReviewProducts";
 import ReportProducts from "../Pages/Moderator/ReportProducts";
 import Status from "../Pages/Admin/Status";
+import ManageUsers from "../Pages/Admin/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -108,14 +109,14 @@ const router = createBrowserRouter([
           <Status></Status>
         ),
       },
-      // {
-      //   path: "manage-users",
-      //   element: (
-      //     <RoleBasedRoute role="admin">
-      //       <ManageUsers />
-      //     </RoleBasedRoute>
-      //   ),
-      // },
+      {
+        path: "/dashboard/manage-users",
+        element: (
+         
+            <ManageUsers/>
+        
+        ),
+      },
       // {
       //   path: "manage-coupons",
       //   element: (
