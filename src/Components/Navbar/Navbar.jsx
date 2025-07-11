@@ -26,10 +26,10 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
-      <nav className="max-w-7xl mx-auto px-4 flex items-center justify-between py-4 relative">
+      <nav className="max-w-11/12 mx-auto px-2 flex items-center justify-between py-4 relative">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
-          <img src={computer} className="h-8" alt="Logo" />
+          <img src={computer} className="h-8 " alt="Logo" />
           <span className="text-2xl font-bold text-gray-800 dark:text-white">
             TECH<span className="text-blue-600">PULSE</span>
           </span>
@@ -69,7 +69,7 @@ const Navbar = () => {
             <div className="relative">
               <img
                 onClick={() => setProfileOpen(!profileOpen)}
-                className="w-9 h-9 rounded-full border cursor-pointer"
+                className="w-9 h-9 rounded-full border-2 cursor-pointer  border-blue-600 "
                 src={user?.photoURL || "/default-user.png"}
                 alt="Profile"
               />

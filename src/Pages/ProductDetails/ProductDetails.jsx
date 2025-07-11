@@ -116,7 +116,7 @@ const ProductDetails = () => {
         <img
           src={product.productImage}
           alt={product.productName}
-          className="w-full rounded-lg shadow-lg"
+          className="lg:max-w-2xl rounded-lg shadow-lg"
         />
         <div>
           <h2 className="text-3xl font-bold text-blue-700 dark:text-blue-400 mb-2">

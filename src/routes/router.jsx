@@ -13,6 +13,7 @@ import PrivateRoute from "../Routs/PrivateRoute";
 import DashboardRedirect from "../Context/DashboardRedirect";
 import ReviewProducts from "../Pages/Moderator/ReviewProducts";
 import ReportProducts from "../Pages/Moderator/ReportProducts";
+import Status from "../Pages/Admin/Status";
 
 const router = createBrowserRouter([
   {
@@ -101,14 +102,12 @@ const router = createBrowserRouter([
       },
 
       // 👑 Admin Routes
-      // {
-      //   path: "statistics",
-      //   element: (
-      //     <RoleBasedRoute role="admin">
-      //       <Statistics />
-      //     </RoleBasedRoute>
-      //   ),
-      // },
+      {
+        path: "/dashboard/status",
+        element: (
+          <Status></Status>
+        ),
+      },
       // {
       //   path: "manage-users",
       //   element: (

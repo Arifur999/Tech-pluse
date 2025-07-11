@@ -21,20 +21,19 @@ const reports = reportsData.reportedProducts || [];
 
 const deleteMutation = useMutation({
   mutationFn: async (productId) => {
-    // Delete product
-    const res = await axiosSecure.delete(`/products/${productId}`);
-    // Delete report
-    await axiosSecure.delete(`/reports/${productId}`);
+    // শুধু এই API কল করো, এতে product এবং report একসাথে delete হবে
+    const res = await axiosSecure.delete(`/reports/delete/${productId}`);
     return res.data;
   },
   onSuccess: () => {
     queryClient.invalidateQueries(["reported-products"]);
-    Swal.fire("Deleted!", "Product has been deleted.", "success");
+    Swal.fire("Deleted!", "Product and related reports deleted.", "success");
   },
 });
 
 
   const handleDelete = (productId) => {
+      console.log("Deleting:", productId);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -93,7 +92,7 @@ const deleteMutation = useMutation({
                     </Link>
                     <button
                       onClick={() => handleDelete(report.productId)}
-                      className="px-3 py-1 rounded bg-red-600 hover:bg-red-700 text-white flex items-center gap-1 text-sm"
+                      className="px-3 py-1 cursor-pointer rounded bg-red-600 hover:bg-red-700 text-white flex items-center gap-1 text-sm"
                     >
                       <FaTrash /> Delete
                     </button>
