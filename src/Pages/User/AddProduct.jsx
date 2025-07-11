@@ -58,6 +58,7 @@ const AddProduct = () => {
       externalLink: data.externalLink || "",
       tags: tags.map((tag) => tag.text),
       status: "pending",
+      featureProduct:"false",
       ownerName: user?.displayName,
       ownerEmail: user?.email,
       ownerImage: user?.photoURL,

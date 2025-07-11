@@ -78,9 +78,9 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/review-products",
         element: (
-          <DashboardRedirect>
+          
             <ReviewProducts />
-          </DashboardRedirect>
+          
         ),
       },
       {

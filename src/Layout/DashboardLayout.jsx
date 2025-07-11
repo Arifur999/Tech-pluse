@@ -201,7 +201,7 @@ const DashboardLayout = () => {
 
       {/* Main Dashboard Content */}
       <main className="flex-1 sm:pt-4">
-        <div className="rounded-lg border-gray-300 dark:border-gray-700">
+        <div className="rounded-lg w-full  border-gray-300 dark:border-gray-700">
           <Outlet />
         </div>
       </main>
