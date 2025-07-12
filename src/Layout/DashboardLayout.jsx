@@ -47,7 +47,7 @@ const DashboardLayout = () => {
   return (
     <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
       {/* Top Mobile Navbar */}
-      <div className="sm:hidden fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow z-50 flex items-center justify-between px-4 py-3">
+      <div className="sm:hidden fixed top-0 left-0 w-full bg-white overflow-x-hidden dark:bg-gray-800 shadow z-50 flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
           <img src={computer} className="h-6" alt="Logo" />
           <span className="text-lg font-bold text-gray-800 dark:text-white">
@@ -201,7 +201,7 @@ const DashboardLayout = () => {
 
       {/* Main Dashboard Content */}
       <main className="flex-1 sm:pt-4">
-        <div className="rounded-lg w-full  border-gray-300 dark:border-gray-700">
+        <div className="rounded-lg w-full overflow-hidden border-gray-300 dark:border-gray-700">
           <Outlet />
         </div>
       </main>

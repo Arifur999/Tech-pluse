@@ -44,7 +44,7 @@ const TrendingProducts = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <FaFireAlt className="inline text-orange-500 mr-2" /> Trending Products
+        <FaFireAlt className="inline text-blue-500 mr-2" /> Trending Products
       </motion.h2>
 
       {/* Subheading */}
@@ -109,7 +109,7 @@ const TrendingProducts = () => {
                   user?.email === product.ownerEmail ||
                   product.voters?.includes(user?.email)
                     ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                    : "bg-orange-500 hover:bg-orange-600 text-white"
+                    : "bg-blue-500 text-white hover:bg-blue-500 text-white"
                 }`}
             >
               <FaThumbsUp /> {product.votes || 0}

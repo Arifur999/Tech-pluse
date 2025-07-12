@@ -39,7 +39,7 @@ const CouponSlider = ({ coupons }) => {
             transition={{ duration: 0.3 }}
             className="bg-gray-800  rounded-2xl shadow-2xl p-10 text-white text-center "
           >
-            <h3 className="text-3xl font-bold text-yellow-400 mb-4 tracking-wider">
+            <h3 className="text-3xl font-bold text-blue-400 mb-4 tracking-wider">
               {coupon.code.toUpperCase()}
             </h3>
             <p className="text-lg text-gray-300 mb-2 italic">

@@ -71,6 +71,7 @@ const Navbar = () => {
                 onClick={() => setProfileOpen(!profileOpen)}
                 className="w-9 h-9 rounded-full border-2 cursor-pointer  border-blue-600 "
                 src={user?.photoURL || "/default-user.png"}
+                referrerPolicy="no-referrer"
                 alt="Profile"
               />
 

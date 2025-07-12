@@ -4,6 +4,7 @@ import login from "/Login-bro.png";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation, Link } from "react-router";
+import SocialLogin from "../../Components/socialLogin/SocileLogin";
 
 const Login = () => {
   const { signInUser } = useContext(AuthContext);
@@ -46,7 +47,7 @@ const Login = () => {
     <div className="min-h-screen grid md:grid-cols-2 items-center gap-10 p-6 bg-gray-100 dark:bg-gray-900">
       {/* Login Form */}
       <div className="max-w-md w-full mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form className="space-y-6 mb-2" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center">
             Sign in to TECH PULSE
           </h2>
@@ -125,6 +126,8 @@ const Login = () => {
             </Link>
           </p>
         </form>
+              <SocialLogin></SocialLogin>
+
       </div>
 
       {/* Image Section */}

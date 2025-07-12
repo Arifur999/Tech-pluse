@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthContext";
 import { useLocation, useNavigate } from "react-router";
 import useAxiosSecure from "../../Hooks/useAxiosSecure"; 
+import SocialLogin from "../../Components/socialLogin/SocileLogin";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -75,7 +76,7 @@ const Register = () => {
     <div className="min-h-screen grid md:grid-cols-2 items-center gap-10 p-6 bg-gray-100 dark:bg-gray-900">
       {/* Register Form */}
       <div className="max-w-md w-full mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form className="space-y-6 mb-2" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center">
             Create a new account
           </h2>
@@ -163,6 +164,7 @@ const Register = () => {
             </a>
           </p>
         </form>
+        <SocialLogin></SocialLogin>
       </div>
 
       {/* Image */}
