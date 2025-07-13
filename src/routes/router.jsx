@@ -16,12 +16,13 @@ import ReportProducts from "../Pages/Moderator/ReportProducts";
 import Status from "../Pages/Admin/Status";
 import ManageUsers from "../Pages/Admin/ManageUsers";
 import ManageCoupons from "../Pages/Admin/ManageCoupons";
+import ErrorPage from "../Components/Error/Errorpage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    // errorElement: <NotFound />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",

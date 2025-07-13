@@ -62,7 +62,6 @@ const MyProducts = () => {
     });
   };
 
-  // এখন handleUpdate শুধু selectedProduct সেট করবে, navigate করবে না
   const handleUpdate = (id) => {
     const product = products.find((p) => p._id === id);
     if (product) {
@@ -92,8 +91,8 @@ const MyProducts = () => {
   }
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center text-blue-700">
+    <div className="pt-16 md:pt-2 lg:p-6 max-w-6xl mx-auto ">
+      <h1 className="text-3xl lg:pt-2 md:pt-2  font-bold mb-6 text-center text-blue-700">
         My Products
       </h1>
 

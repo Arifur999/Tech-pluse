@@ -5,7 +5,7 @@ const PendingDetailsModal = ({ product, onClose }) => {
   if (!product) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 pt-16 md:pt-3 lg:pt-3 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full p-6 relative shadow-lg">
         {/* Close button */}
         <button

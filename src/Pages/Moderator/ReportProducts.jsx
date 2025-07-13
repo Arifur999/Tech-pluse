@@ -52,7 +52,7 @@ const deleteMutation = useMutation({
     return <div className="text-center py-10 text-gray-600">Loading...</div>;
 
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 pt-16 md:pt-3 lg:pt-3 w-full">
       <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
         Reported Products
       </h2>

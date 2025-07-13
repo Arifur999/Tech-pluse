@@ -36,7 +36,7 @@ const ManageUsers = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-16 md:pt-3 lg:pt-3">
       <h2 className="text-2xl text-blue-500 font-semibold mb-4">Manage Users</h2>
       <div className="overflow-x-auto">
         <table className="table  w-full ">
