@@ -18,6 +18,7 @@ import ManageUsers from "../Pages/Admin/ManageUsers";
 import ManageCoupons from "../Pages/Admin/ManageCoupons";
 import ErrorPage from "../Components/Error/Errorpage";
 import RoleBasedRoute from "../Routs/RoleBasedRoute";
+import Contact from "../Pages/contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/products",
         Component: Products,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
       },
       {
         path: "/product/:id",
