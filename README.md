@@ -1,12 +1,60 @@
-# React + Vite
+# 💡 Tech Pulse
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Tech Pulse** is a full-stack web application designed to showcase, review, and manage tech products. It provides a seamless experience for users to add and explore products, while moderators and admins maintain platform integrity with role-based dashboards and functionality.
 
-Currently, two official plugins are available:
+> 🔗 **Live URL:** [#](#)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📌 Project Purpose
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The purpose of Tech Pulse is to provide a curated platform for tech enthusiasts to share and discover innovative products. With built-in authentication, role-based access, Stripe integration, and reporting systems, it ensures both usability and platform control.
+
+---
+
+## 🚀 Key Features
+
+- 🔐 **JWT & Firebase Authentication**
+- 🧑‍💻 **Role-Based Dashboard Access**
+  - `User`: Add, Edit, Manage own products
+  - `Moderator`: Review & remove reported content
+  - `Admin`: Manage users, stats, and coupons
+- 📦 **Product Showcase with Tags, Votes & Reviews**
+- 🧾 **Coupon Creation & Stripe Subscription Integration**
+- 🚩 **Report System with Admin Action**
+- 📊 **Admin Statistics Dashboard**
+- 🌙 **Dark-Themed UI** (`gray-900` base theme)
+- 💬 **Real-time Toasts & Alerts**
+
+---
+
+## 🛠 Tech Stack
+
+| Frontend           | Backend         | Database | Authentication     | Payments |
+|-------------------|------------------|----------|---------------------|----------|
+| React 19           | Express.js       | MongoDB  | Firebase + JWT      | Stripe   |
+| TailwindCSS 4.1    | Node.js          |          |                     |          |
+| Framer Motion      |                  |          |                     |          |
+
+---
+
+## 📦 NPM Packages Used
+
+> *Frontend Packages:*
+- `react`, `react-dom`, `react-router`
+- `axios`, `jwt-decode`
+- `react-hook-form`, `yup`, `@hookform/resolvers`
+- `framer-motion`, `sweetalert2`, `react-hot-toast`
+- `react-icons`, `react-tag-input`, `recharts`
+- `@stripe/react-stripe-js`, `@stripe/stripe-js`
+- `swiper`, `react-countup`, `react-modal`
+- `daisyui`, `flowbite`, `tailwindcss`
+
+> *Backend Packages:*
+- `express`, `cors`, `dotenv`, `cookie-parser`
+- `mongodb`, `jsonwebtoken`, `stripe`
+
+---
+
+## 📁 Project Structure
+
