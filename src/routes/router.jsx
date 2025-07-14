@@ -17,6 +17,7 @@ import Status from "../Pages/Admin/Status";
 import ManageUsers from "../Pages/Admin/ManageUsers";
 import ManageCoupons from "../Pages/Admin/ManageCoupons";
 import ErrorPage from "../Components/Error/Errorpage";
+import RoleBasedRoute from "../Routs/RoleBasedRoute";
 
 const router = createBrowserRouter([
   {
@@ -61,46 +62,58 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-      index: true,
-      element: <DashboardRedirect />,
-    },
+        index: true,
+        element: <DashboardRedirect />,
+      },
       // 👤 User Routes
       {
         path: "/dashboard/profile",
-        Component: UserProfile,
+        element: (
+          <RoleBasedRoute allowedRoles={["user"]}>
+            <UserProfile />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "/dashboard/add-product",
-        Component: AddProduct,
+        element: (
+          <RoleBasedRoute allowedRoles={["user"]}>
+            <AddProduct />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "/dashboard/my-products",
-        Component: MyProducts,
+        element: (
+          <RoleBasedRoute allowedRoles={["user"]}>
+            <MyProducts />
+          </RoleBasedRoute>
+        ),
       },
 
       // 🛡️ Moderator Routes
       {
         path: "/dashboard/review-products",
         element: (
-          
+          <RoleBasedRoute allowedRoles={["moderator"]}>
             <ReviewProducts />
-          
+          </RoleBasedRoute>
         ),
       },
       {
         path: "/dashboard/report-products",
         element: (
-      
-            <ReportProducts />
-          
+          <RoleBasedRoute allowedRoles={["moderator"]}>
+            <ReportProducts />,
+          </RoleBasedRoute>
         ),
       },
       {
         path: "/dashboard/report-products",
         element: (
-      
+          <RoleBasedRoute allowedRoles={["moderator"]}>
             <ReportProducts />
-          
+          </RoleBasedRoute>
         ),
       },
 
@@ -108,21 +121,25 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/status",
         element: (
-          <Status></Status>
+          <RoleBasedRoute allowedRoles={["admin"]}>
+            <Status></Status>
+          </RoleBasedRoute>
         ),
       },
       {
         path: "/dashboard/manage-users",
         element: (
-         
-            <ManageUsers/>
-        
+          <RoleBasedRoute allowedRoles={["admin"]}>
+            <ManageUsers />
+          </RoleBasedRoute>
         ),
       },
       {
         path: "/dashboard/manage-coupons",
         element: (
-          <ManageCoupons/>
+          <RoleBasedRoute allowedRoles={["admin"]}>
+            <ManageCoupons />
+          </RoleBasedRoute>
         ),
       },
     ],

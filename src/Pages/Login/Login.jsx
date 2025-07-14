@@ -4,10 +4,12 @@ import login from "/Login-bro.png";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation, Link } from "react-router";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import SocialLogin from "../../Components/socialLogin/SocileLogin";
 
 const Login = () => {
-  const { signInUser } = useContext(AuthContext);
+ const { signInUser } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -15,35 +17,38 @@ const Login = () => {
   } = useForm();
 
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); 
-  const location = useLocation(); 
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/"; 
+  const from = location.state?.from?.pathname || "/";
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { email, password } = data;
-    signInUser(email, password)
-      .then((result) => {
-        Swal.fire({
-          title: "Success!",
-          text: "Login successful",
-          icon: "success",
-          confirmButtonText: "OK",
-        }).then(() => {
-          navigate(from, { replace: true }); 
-        });
-      })
-      .catch((error) => {
-        Swal.fire({
-          title: "Error!",
-          text: error.message,
-          icon: "error",
-          confirmButtonText: "OK",
-        });
-      });
-  };
 
-  return (
+    try {
+      const result = await signInUser(email, password);
+      const loggedUser = result.user;
+
+      const res = await axiosSecure.post("/jwt", {
+        email: loggedUser.email,
+      });
+
+      localStorage.setItem("access-token", res.data.token); 
+
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful!",
+      }).then(() => {
+        navigate(from, { replace: true });
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: error.message,
+      });
+    }
+  };  return (
     <div className="min-h-screen grid md:grid-cols-2 items-center gap-10 p-6 bg-gray-100 dark:bg-gray-900">
       {/* Login Form */}
       <div className="max-w-md w-full mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">

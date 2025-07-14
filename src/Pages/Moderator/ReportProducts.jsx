@@ -21,7 +21,6 @@ const reports = reportsData.reportedProducts || [];
 
 const deleteMutation = useMutation({
   mutationFn: async (productId) => {
-    // শুধু এই API কল করো, এতে product এবং report একসাথে delete হবে
     const res = await axiosSecure.delete(`/reports/delete/${productId}`);
     return res.data;
   },
@@ -85,7 +84,7 @@ const deleteMutation = useMutation({
                 <td className="px-4 py-3">
                   <div className="flex gap-3">
                     <Link
-                      to={`/product/${report._id}`}
+                      to={`/product/${report.productId}`}
                       className="px-3 py-1 rounded bg-blue-500 hover:bg-blue-600 text-white flex items-center gap-1 text-sm"
                     >
                       <FaEye /> View

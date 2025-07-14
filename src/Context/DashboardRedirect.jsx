@@ -1,21 +1,14 @@
+
 import React, { useContext } from "react";
 import { Navigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { AuthContext } from "./AuthContext";
-import Loading from "../Components/Loading/Loading";
 
 const DashboardRedirect = () => {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
-  // If auth context is still loading, show loading
-  if (loading) return <Loading />;
-
-  // If not logged in, redirect to login
-  if (!user) return <Navigate to="/login" replace />;
-
-  // Now check user role
   const { data: userRole = "user", isLoading } = useQuery({
     queryKey: ["user-role", user?.email],
     enabled: !!user?.email,
@@ -25,7 +18,7 @@ const DashboardRedirect = () => {
     },
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <div>Loading...</div>;
 
   if (userRole === "admin") {
     return <Navigate to="/dashboard/status" replace />;
