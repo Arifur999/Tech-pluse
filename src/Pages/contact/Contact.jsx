@@ -2,8 +2,8 @@ import React from "react";
 import contactImd from '/Contact.png'
 const Contact = () => {
   return (
-    <section className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-10">
-      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10 bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+    <section className="min-h-screen dark:bg-gray-900  flex items-center justify-center px-4 py-10">
+      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
         {/* Left Side - Image */}
         <div className="w-full h-96 md:h-auto">
           <img
@@ -14,9 +14,9 @@ const Contact = () => {
         </div>
 
         {/* Right Side - Form */}
-        <div className="flex flex-col justify-center p-6 md:p-10 text-white">
+        <div className="flex flex-col justify-center p-6 md:p-10 text-gray-600 dark:text-gray-300">
           <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
-          <p className="text-gray-300 mb-6">Feel free to reach out by filling this form.</p>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">Feel free to reach out by filling this form.</p>
 
           <form className="space-y-4">
             <div>
@@ -24,7 +24,7 @@ const Contact = () => {
               <input
                 type="text"
                 placeholder="John Doe"
-                className="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -34,7 +34,7 @@ const Contact = () => {
               <input
                 type="email"
                 placeholder="john@example.com"
-                className="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -44,7 +44,7 @@ const Contact = () => {
               <textarea
                 rows="4"
                 placeholder="Write your message..."
-                className="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>

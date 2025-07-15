@@ -27,13 +27,13 @@ const Login = () => {
 
     try {
       const result = await signInUser(email, password);
-      const loggedUser = result.user;
+      // const loggedUser = result.user;
 
-      const res = await axiosSecure.post("/jwt", {
-        email: loggedUser.email,
-      });
+      // const res = await axiosSecure.post("/jwt", {
+      //   email: loggedUser.email,
+      // });
 
-      localStorage.setItem("access-token", res.data.token); 
+      // localStorage.setItem("access-token", res.data.token); 
 
       Swal.fire({
         icon: "success",

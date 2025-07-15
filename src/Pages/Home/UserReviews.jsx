@@ -44,7 +44,7 @@ const reviews = [
 const UserReviews = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <h2 className="text-3xl font-bold text-white mb-10 text-center">
+      <h2 className="text-3xl font-bold text-gray-600 dark:text-gray-300 mb-10 text-center">
         What Users Say
       </h2>
       <div className="grid md:grid-cols-2 gap-8">
@@ -52,7 +52,7 @@ const UserReviews = () => {
           <motion.div
             key={i}
             whileHover={{ scale: 1.03 }}
-            className="bg-gray-800 rounded-xl shadow-xl p-6"
+            className="dark:bg-gray-900  rounded-xl shadow-xl p-6"
           >
             <div className="flex items-center gap-4 mb-3">
               <img
@@ -61,7 +61,7 @@ const UserReviews = () => {
                 className="w-14 h-14 rounded-full border-2 border-blue-400"
               />
               <div>
-                <h3 className="text-white font-semibold">{r.name}</h3>
+                <h3 className=" dark:text-gray-300 font-semibold">{r.name}</h3>
                 <StarRatings
                   rating={r.rating}
                   starRatedColor="#facc15"
@@ -72,7 +72,7 @@ const UserReviews = () => {
                 />
               </div>
             </div>
-            <p className="text-gray-300 italic">"{r.comment}"</p>
+            <p className="bg-gray-100 dark:bg-gray-900 italic">"{r.comment}"</p>
           </motion.div>
         ))}
       </div>

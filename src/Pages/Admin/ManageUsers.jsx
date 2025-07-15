@@ -42,15 +42,15 @@ const ManageUsers = () => {
         <table className="table  w-full ">
           <thead>
             <tr>
-              <th className="text-gray-300">#</th>
-              <th className="text-gray-300">User Name</th>
-              <th className="text-gray-300">Email</th>
-              <th className="text-gray-300">Role</th>
-              <th className="text-gray-300">Make Moderator</th>
-              <th className="text-gray-300">Make Admin</th>
+              <th className="text-gray-600 dark:text-gray-300">#</th>
+              <th className="text-gray-600 dark:text-gray-300">User Name</th>
+              <th className="text-gray-600 dark:text-gray-300">Email</th>
+              <th className="text-gray-600 dark:text-gray-300">Role</th>
+              <th className="text-gray-600 dark:text-gray-300">Make Moderator</th>
+              <th className="text-gray-600 dark:text-gray-300">Make Admin</th>
             </tr>
           </thead>
-          <tbody className="text-gray-300">
+          <tbody className="text-gray-600 dark:text-gray-300">
             {users.map((user, index) => (
               <tr key={user._id}>
                 <td>{index + 1}</td>

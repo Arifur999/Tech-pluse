@@ -135,7 +135,7 @@ const ProductDetails = () => {
             ))}
           </div>
 
-          {product.externalLink && (
+          {/* {product.externalLink && (
             <Link
               to="/products"
               target="_blank"
@@ -144,7 +144,7 @@ const ProductDetails = () => {
             >
               Visit Product Page
             </Link>
-          )}
+          )} */}
 
           <div className="mb-6 space-y-2 text-gray-700 dark:text-gray-300">
             <p className="flex items-center gap-2">

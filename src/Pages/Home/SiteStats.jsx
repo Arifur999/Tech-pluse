@@ -28,8 +28,8 @@ const SiteStats = () => {
   ];
 
   return (
-    <div className="bg-gray-900 py-12 px-4">
-      <h2 className="text-3xl font-bold text-white mb-10 text-center">
+    <div className="bg-gray-100 dark:bg-gray-900  py-12 px-4">
+      <h2 className="text-3xl font-bold text-gray-600 dark:text-gray-300 mb-10 text-center">
         Platform Statistics
       </h2>
       <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-6">
@@ -41,10 +41,10 @@ const SiteStats = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.2, duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-gray-800 rounded-lg p-6 text-center shadow-lg"
+            className="bg-gray-100 dark:bg-gray-900 rounded-lg p-6 text-center shadow-lg"
           >
             <div className="mb-3 flex justify-center">{stat.icon}</div>
-            <h3 className="text-white text-lg font-semibold">{stat.label}</h3>
+            <h3 className="text-gray-600 dark:text-gray-300 text-lg font-semibold">{stat.label}</h3>
             <p className="text-3xl font-bold text-green-300 mt-2">
               <CountUp end={stat.value} duration={8} separator="," />
             </p>

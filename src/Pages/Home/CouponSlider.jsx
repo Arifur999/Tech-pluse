@@ -27,7 +27,7 @@ const CouponSlider = ({ coupons }) => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold mb-8 text-white text-center">
+      <h2 className="text-3xl font-bold mb-8 text-gray-100 dark:text-gray-300 text-center">
         Trending Coupons
       </h2>
 
@@ -37,12 +37,12 @@ const CouponSlider = ({ coupons }) => {
             key={coupon._id}
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
-            className="bg-gray-800  rounded-2xl shadow-2xl p-10 text-white text-center "
+            className="dark:bg-gray-900   rounded-2xl shadow-2xl p-10 text-gray-600 dark:text-gray-300 text-center "
           >
             <h3 className="text-3xl font-bold text-blue-400 mb-4 tracking-wider">
               {coupon.code.toUpperCase()}
             </h3>
-            <p className="text-lg text-gray-300 mb-2 italic">
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-2 italic">
               {coupon.description}
             </p>
             <p className="text-xl text-green-400 font-semibold mb-2">

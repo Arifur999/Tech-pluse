@@ -87,7 +87,7 @@ const Navbar = () => {
                     <li>
                       <Link
                         to="/dashboard"
-                        className="flex items-center gap-2 px-4 py-2 text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex items-center gap-2 px-4 py-2 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                         onClick={() => setProfileOpen(false)}
                       >
                         <FaTachometerAlt /> Dashboard
@@ -188,7 +188,7 @@ const Navbar = () => {
                   <Link
                     to="/dashboard"
                     onClick={toggleMenu}
-                    className="text-gray-700 dark:text-white"
+                    className=" dark:text-white"
                   >
                     <FaTachometerAlt className="inline" /> Dashboard
                   </Link>

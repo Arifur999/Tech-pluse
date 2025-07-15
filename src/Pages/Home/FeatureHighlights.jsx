@@ -24,8 +24,8 @@ const features = [
 
 const FeatureHighlights = () => {
   return (
-    <div className="bg-gray-900 py-12 px-4">
-      <h2 className="text-3xl font-bold text-white mb-10 text-center">
+    <div className="bg-gray-100 dark:bg-gray-900 py-12 px-4">
+      <h2 className="text-3xl font-bold text-gray-600 dark:text-gray-300 mb-10 text-center">
          Why Choose Us?
       </h2>
       <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-6">
@@ -37,10 +37,10 @@ const FeatureHighlights = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.2, duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-gray-800 rounded-lg p-6 text-center shadow-md"
+            className="bg-gray-100 dark:bg-gray-900 rounded-lg p-6 text-center shadow-md"
           >
             <div className="flex justify-center mb-3">{feature.icon}</div>
-            <h3 className="text-white text-lg font-semibold">
+            <h3 className="text-gray-600 dark:text-gray-300 text-lg font-semibold">
               {feature.title}
             </h3>
           </motion.div>

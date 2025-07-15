@@ -59,13 +59,13 @@ const ManageCoupons = () => {
   };
 
   return (
-    <div className="p-6 pt-16 md:pt-3 lg:pt-3 text-white bg-gray-900 min-h-screen">
+    <div className="p-6 pt-16 md:pt-3 lg:pt-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-900 min-h-screen">
       <h2 className="text-3xl font-bold text-blue-400 mb-6">🎟️ Manage Coupons</h2>
 
       {/* Add Coupon Form */}
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-800 p-6 rounded-xl shadow mb-10"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-100 dark:bg-gray-900 p-6 rounded-xl shadow mb-10"
       >
         <input
           type="text"
@@ -109,7 +109,7 @@ const ManageCoupons = () => {
 
       {/* Coupon Table */}
       <div className="overflow-x-auto">
-        <table className="table  w-full text-white">
+        <table className="table  w-full text-gray-600 dark:text-gray-300">
           <thead className="bg-blue-950 text-blue-200">
             <tr>
               <th>#</th>
@@ -120,7 +120,7 @@ const ManageCoupons = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody className="bg-gray-800">
+          <tbody className="bg-gray-100 dark:bg-gray-900">
             {coupons.map((coupon, i) => (
               <tr key={coupon._id}>
                 <td>{i + 1}</td>

@@ -23,7 +23,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-gray-900">
+    <div className="bg-gray-100 dark:bg-gray-900">
       <Hero />
       <FeaturedProducts></FeaturedProducts>
       <TrendingProducts></TrendingProducts>

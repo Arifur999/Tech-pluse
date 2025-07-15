@@ -3,6 +3,7 @@
 **Tech Pulse** is a full-stack web application designed to showcase, review, and manage tech products. It provides a seamless experience for users to add and explore products, while moderators and admins maintain platform integrity with role-based dashboards and functionality.
 
 > 🔗 **Live URL:** [#](#)
+> 🔗 **server URL:** [https://assingment-12-server-seven.vercel.app/](https://assingment-12-server-seven.vercel.app/)
 
 ---
 
@@ -56,5 +57,5 @@ The purpose of Tech Pulse is to provide a curated platform for tech enthusiasts 
 
 ---
 
-## 📁 Project Structure
+
 
