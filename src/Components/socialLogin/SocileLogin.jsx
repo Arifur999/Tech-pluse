@@ -27,11 +27,11 @@ const SocialLogin = () => {
 console.log(user);
       await axiosSecure.patch("/users", userInfo); 
 
-      const res = await axiosSecure.post("/jwt", {
-        email: user.email,
-      });
+      // const res = await axiosSecure.post("/jwt", {
+      //   email: user.email,
+      // });
 
-      localStorage.setItem("access-token", res.data.token);
+      // localStorage.setItem("access-token", res.data.token);
 
       Swal.fire({
         icon: "success",
