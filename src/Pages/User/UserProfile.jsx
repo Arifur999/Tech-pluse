@@ -15,7 +15,7 @@ const UserProfile = () => {
   const [status, setStatus] = useState("Unsubscribed");
   const [showModal, setShowModal] = useState(false);
 
-  //  Fetch subscription status from server when user loads
+  //  Fetch subscription status from server when user loads /users/role/:email
   useEffect(() => {
     const fetchStatus = async () => {
       try {

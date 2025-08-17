@@ -7,11 +7,12 @@ import {
   FaInstagram,
   FaReact,
 } from 'react-icons/fa';
+import { Link } from 'react-router';
 
 const Footer = () => {
   return (
     <footer className="bg-gray-950 text-gray-300 py-10 px-4 border-t border-gray-700 shadow-2xl">
-      <div className="max-w-11/12 mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 lg:px-14">
+      <div className="max-w-11/12 mx-auto grid grid-cols-1 md:grid-cols-4 justify-between gap-8 lg:px-14">
 
         {/* Brand */}
         <div className="flex flex-col items-start">
@@ -32,10 +33,9 @@ const Footer = () => {
 			
           <h3 className="text-white font-semibold mb-3">Product</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:text-white">Features</a></li>
-            <li><a href="#" className="hover:text-white">Integrations</a></li>
-            <li><a href="#" className="hover:text-white">Pricing</a></li>
-            <li><a href="#" className="hover:text-white">FAQ</a></li>
+            <li><Link to='/' className="hover:text-white">Home</Link></li>
+            <li><Link to='/Features' className="hover:text-white">Features</Link></li>
+            <li><Link to='/contact' className="hover:text-white">contact</Link></li>
           </ul>
         </div>
 
@@ -45,15 +45,15 @@ const Footer = () => {
         <div className='flex flex-col items-end'>
           <h3 className="text-white font-semibold mb-3">Connect</h3>
           <div className="flex gap-4 text-lg">
-            <a href="#" className="hover:text-blue-500">
+            <Link to='/' className="hover:text-blue-500">
               <FaFacebookF />
-            </a>
-            <a href="#" className="hover:text-sky-400">
+            </Link>
+            <Link to='/' className="hover:text-sky-400">
               <FaTwitter />
-            </a>
-            <a href="#" className="hover:text-pink-500">
+            </Link>
+            <Link to='/' className="hover:text-pink-500">
               <FaInstagram />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
