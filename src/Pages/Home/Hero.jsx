@@ -6,6 +6,7 @@ import img3 from "/img3.jpeg";
 import img4 from "/img4.jpeg";
 import img5 from "/img5.jpeg";
 import img6 from "/img6.jpeg";
+import { Link } from "react-router";
 
 const productImages = [img1, img2, img3, img4, img5, img6];
 
@@ -55,16 +56,17 @@ const Hero = () => {
       >
         Get lifetime access to top-rated software, AI tools, productivity boosters, and web apps — all at unbeatable prices. No monthly fees ever.
       </motion.p>
-
-      <motion.button
+<Link to='/products'>
+      <motion.button 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
+        Link
         className="outline outline-blue-600 text-blue-600 px-6 py-3 rounded-full font-semibold hover:text-white hover:bg-blue-600 transition duration-300"
       >
         Browse all exclusive deals
       </motion.button>
-
+</Link>
       <motion.div
         className="pt-6 text-sm text-gray-500 dark:text-gray-400"
         initial={{ opacity: 0 }}
